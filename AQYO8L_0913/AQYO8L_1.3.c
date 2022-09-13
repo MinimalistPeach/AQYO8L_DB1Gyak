@@ -5,6 +5,7 @@ void pelda();
 int main()
 {
     pelda();
+    getch();
     return 0;
 }
 
