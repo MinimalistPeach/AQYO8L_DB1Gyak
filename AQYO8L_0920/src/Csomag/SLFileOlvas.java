@@ -1,6 +1,5 @@
-package AQYO8L_0920.src.SLFajlOlvas;
+package AQYO8L_0920.src.Csomag;
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.Scanner;
 
 public class SLFileOlvas {
@@ -9,7 +8,7 @@ public class SLFileOlvas {
     {
         int[] db;
         int sum = 0;
-        File file = new File("C:\\Users\\strem\\Desktop\\Adabázis gyak\\AQYO8L_0920\\src\\SLFajlOlvas\\stremler.txt");
+        File file = new File(".\\AQYO8L_0920\\src\\Csomag\\stremler.txt");
 
         db = intOlvas(file);
 
@@ -39,6 +38,5 @@ public class SLFileOlvas {
         reader.close();
 
         return out;
-       // return Integer.parseInt(.toString());
     }
 }
