@@ -1,4 +1,4 @@
-package AQYO8L_0920.src.Csomag;
+
 
 import java.io.BufferedReader;
 import java.io.FileReader;
