@@ -1,0 +1,74 @@
+1. Kérdezzük le az összes olyan beszállítót, aki fagyasztott árut szállít!
+SELECT * FROM beszállító WHERE Termék_kategória='Fagyasztott áru'
+σ termék_kategória = "Fagyasztott áru" beszállító
+
+
+2. Kérdezzük le az összes olyan áru nevét a beszállító raktárból, amit ha bármelyik áruház berendelne, ugyanolyan névvel kapna meg!
+SELECT b.Név FROM beszállító_raktár b JOIN áruház_raktár_tartalom a ON b.TermekID=a.TermekID WHERE b.Név LIKE a.Név
+π b . név
+ σ b . név LIKE a . név
+  (ρ b beszállító_raktár ⋈ b . termekid = a . termekid
+   ρ a áruház_raktár_tartalom)
+
+
+3. Kérdezzük le az összes olyan akciós termék nevét, amit be tud rendelni az áruház a beszállítótól készlethiány esetén! (nem számít hogy az áruház kapcsolatban áll a beszállítóval)
+SELECT a.Termék_neve FROM akciós_termékek a INNER JOIN beszállító_raktár b ON a.TermekID=b.TermekID
+π a . termék_neve
+ (ρ a akciós_termékek ⋈ a . termekid = b . termekid
+  ρ b beszállító_raktár)
+
+
+4. Kérdezzük le az összes olyan akciós termék nevét, amit be tud rendelni az áruház a beszállítótól készlethiány esetén! (számít hogy az áruház kapcsolatban áll a beszállítóval)
+SELECT a.Termék_neve FROM akciós_termékek a INNER JOIN beszállító_raktár b ON a.TermekID=b.TermekID LEFT JOIN áruház_raktár_tartalom arak ON a.TermekID=arak.TermekID JOIN áruház ar ON arak.AruhazID=ar.AruhazID JOIN áruház_beszállító_kapcsolat abk ON ar.AruhazID=abk.BeszallitoID GROUP BY a.Termék_neve;
+π a . termék_neve
+ (ρ a akciós_termékek ⋈ a . termekid = b . termekid
+  ρ b beszállító_raktár ⋈ a . termekid = arak . termekid
+   ρ arak áruház_raktár_tartalom ⋈ arak . aruhazid = ar . aruhazid
+    ρ ar áruház ⋈ ar . aruhazid = abk . beszallitoid
+     ρ abk áruház_beszállító_kapcsolat)
+
+
+
+5. Kérdezzük le a Coop áruházi raktárában lévő termékek átlagárát!
+SELECT AVG(arta.Ár) AS 'Átlagár' FROM áruház_raktár_tartalom a JOIN áruház_raktár_tartalom_ár arta ON a.TermekID=arta.TermekID JOIN áruház ar ON a.AruhazID=ar.AruhazID WHERE ar.Név='Coop'
+π AVG (ár)
+ γ AVG (ár)
+  σ ar . név = "Coop"
+   (ρ a áruház_raktár_tartalom ⋈ a . termekid = arta . termekid
+    ρ arta áruház_raktár_tartalom_ár ⋈ a . aruhazid = ar . aruhazid
+     ρ ar áruház)
+
+
+6. Kérdezzük le az akciós termékek nevét és árának különbségét a normál árától!
+SELECT art.Név, (arta.Ár-ataa.Akciós_ár) AS 'Árkülönbség' FROM akciós_termékek_akciós_ár ataa JOIN áruház_raktár_tartalom_ár arta ON ataa.TermekID=arta.TermekID JOIN áruház_raktár_tartalom art ON ataa.TermekID=art.TermekID
+π art . név, arta . ár - ataa . akciós_ár
+ (ρ ataa akciós_termékek_akciós_ár ⋈ ataa . termekid = arta . termekid
+  ρ arta áruház_raktár_tartalom_ár ⋈ ataa . termekid = art . termekid
+   ρ art áruház_raktár_tartalom)
+
+
+7. Kérdezzük le az akciós termékek nevét és árának különbségét az akcióban kiírt normál árától!
+SELECT art.Név, (area.Eredeti_ár-ataa.Akciós_ár) AS 'Árkülönbség' FROM akciós_termékek_akciós_ár ataa JOIN akciós_termékek_eredeti_ár area ON ataa.TermekID=area.TermekID JOIN áruház_raktár_tartalom art ON ataa.TermekID=art.TermekID
+π art . név, area . eredeti_ár - ataa . akciós_ár
+ (ρ ataa akciós_termékek_akciós_ár ⋈ ataa . termekid = area . termekid
+  ρ area akciós_termékek_eredeti_ár ⋈ ataa . termekid = art . termekid
+   ρ art áruház_raktár_tartalom)
+
+
+8. Hány darab különböző 300 forint feletti termék kapható a Sparban?
+SELECT COUNT(art.TermekID) AS 'Darabszám' FROM áruház_raktár_tartalom art JOIN áruház_raktár_tartalom_ár arta ON art.TermekID=arta.TermekID JOIN áruház a ON art.AruhazID=a.AruhazID WHERE arta.Ár>300 AND a.Név LIKE 'Spar'
+π COUNT (termekid)
+ γ COUNT (termekid)
+  σ arta . ár > 300 AND a . név LIKE "Spar"
+   (ρ art áruház_raktár_tartalom ⋈ art . termekid = arta . termekid
+    ρ arta áruház_raktár_tartalom_ár ⋈ art . aruhazid = a . aruhazid
+     ρ a áruház)
+
+
+9. Mely termékeket szállítják le a legrövidebb idő alatt a beszállítók?
+SELECT b.Átlagos_kiszállítási_idő AS 'Idő', br.Név AS 'Leggyorsabban leszállítható termékek' FROM beszállító_raktár br JOIN beszállító b ON br.BeszallitoID=b.BeszallitoID ORDER BY b.Átlagos_kiszállítási_idő ASC LIMIT 1
+π (Átlagos_kiszállítási_idő) γ (Átlagos_kiszállítási_idő) σ (ρ b beszállító ⋈ b . BeszallitoID=br . BeszallitoID (b.Átlagos_kiszállítási_idő x br.BeszallitoID)
+
+10. Mely termékeket szállítják le a leghosszabb idő alatt a beszállítók?
+SELECT b.Átlagos_kiszállítási_idő AS 'Idő', br.Név AS 'Leglassabban leszállítható termékek' FROM beszállító_raktár br JOIN beszállító b ON br.BeszallitoID=b.BeszallitoID ORDER BY b.Átlagos_kiszállítási_idő DESC LIMIT 1
+π (Átlagos_kiszállítási_idő) γ (Átlagos_kiszállítási_idő) σ (ρ b beszállító ⋈ b . BeszallitoID=br . BeszallitoID (b.Átlagos_kiszállítási_idő x br.BeszallitoID)
