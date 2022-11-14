@@ -1,19 +1,19 @@
-INSERT INTO `áruház` (`AruhazID`, `Név`, `Település`, `Iranyitoszam`, `Utca`, `Házszám`) VALUES ('1', 'Coop', 'Mucsomröcsöge', '1234', 'Bánat utca', '21'), ('2', 'Spar', 'Bekecs', '6789', 'Károly utca', '98'), ('3', 'Penny Market', 'Andalujza', '9183', 'Petőfi utca', '56'), ('4', 'Marika kisboltja', 'Sajószöged', '6756', 'Korda György utca', '69')
+INSERT INTO `áruház` (`AruhazID`, `Név`, `Település`, `Iranyitoszam`, `Utca`, `Házszám`) VALUES ('1', 'Coop', 'Mucsomröcsöge', '1234', 'Bánat utca', '21'), ('2', 'Spar', 'Bekecs', '6789', 'Károly utca', '98'), ('3', 'Penny Market', 'Andalujza', '9183', 'Petőfi utca', '56'), ('4', 'Marika kisboltja', 'Sajószöged', '6756', 'Korda György utca', '69');
 
 
-INSERT INTO `beszállító` (`BeszallitoID`, `Név`, `Termék_kategória`, `Átlagos_kiszállítási_idő`) VALUES ('1', 'Beszál-Litok', 'Gumiabroncs', '120'), ('2', 'Hűtő feltöltők', 'Fagyasztott áru', '45'), ('3', 'KertÉSZkedés', 'Kertészet', '60'), ('4', 'Rip-Rop', 'Rágcsa', '70')
+INSERT INTO `beszállító` (`BeszallitoID`, `Név`, `Termék_kategória`, `Átlagos_kiszállítási_idő`) VALUES ('1', 'Beszál-Litok', 'Gumiabroncs', '120'), ('2', 'Hűtő feltöltők', 'Fagyasztott áru', '45'), ('3', 'KertÉSZkedés', 'Kertészet', '60'), ('4', 'Rip-Rop', 'Rágcsa', '70');
 
-INSERT INTO `áruház_beszállító_kapcsolat` (`AruhazID`, `BeszallitoID`) VALUES ('1', '2'), ('1', '4'), ('4', '4'), ('4', '2'), ('3', '2'), ('3', '1'), ('3', '3'), ('3', '4'), ('2', '4'), ('2', '3'), ('2', '2'), ('2', '1')
+INSERT INTO `áruház_beszállító_kapcsolat` (`AruhazID`, `BeszallitoID`) VALUES ('1', '2'), ('1', '4'), ('4', '4'), ('4', '2'), ('3', '2'), ('3', '1'), ('3', '3'), ('3', '4'), ('2', '4'), ('2', '3'), ('2', '2'), ('2', '1');
 
-INSERT INTO `áruház_raktár_tartalom` (`Darabszám`, `Név`, `Kategória`, `Leírás`, `TermekID`, `AruhazID`) VALUES ('20', 'Mogyoróvaj', 'Rágcsa', 'Finomság :)', '1', '2'), ('10', 'Kecsketej', 'Fagyasztott áru', 'Finom, frissen fejt kecsketejcsike', '2', '4'), ('200', 'Kinder MaxiKing', 'Rágcsa', 'A létező legjobb édesség', '3', '3'), ('11', 'Kerekerdő Gumiabroncs', 'Jármű', 'Jó kis abroncs', '4', '2'), ('5', 'Tuja', 'Kertészet', 'Szimpla tuja', '5', '2'), ('6', 'Gyorsfagyasztott pizza', 'Fagyasztott áru', 'Egy gyorsan megfagyasztott pizza', '6', '1')
+INSERT INTO `áruház_raktár_tartalom` (`Darabszám`, `Név`, `Kategória`, `Leírás`, `TermekID`, `AruhazID`) VALUES ('20', 'Mogyoróvaj', 'Rágcsa', 'Finomság :)', '1', '2'), ('10', 'Kecsketej', 'Fagyasztott áru', 'Finom, frissen fejt kecsketejcsike', '2', '4'), ('200', 'Kinder MaxiKing', 'Rágcsa', 'A létező legjobb édesség', '3', '3'), ('11', 'Kerekerdő Gumiabroncs', 'Jármű', 'Jó kis abroncs', '4', '2'), ('5', 'Tuja', 'Kertészet', 'Szimpla tuja', '5', '2'), ('6', 'Gyorsfagyasztott pizza', 'Fagyasztott áru', 'Egy gyorsan megfagyasztott pizza', '6', '1');
 
 
-INSERT INTO `áruház_raktár_tartalom_ár` (`Ár`, `TermekID`) VALUES ('200', '3'), ('500', '1'), ('300', '2'), ('15000', '4'), ('600', '5'), ('1200', '6')
+INSERT INTO `áruház_raktár_tartalom_ár` (`Ár`, `TermekID`) VALUES ('200', '3'), ('500', '1'), ('300', '2'), ('15000', '4'), ('600', '5'), ('1200', '6');
 
-INSERT INTO `akciós_termékek` (`TermekID`, `Termék_neve`, `Termék_leírás`, `Termék_kategória`) VALUES ('1', 'Akciós mogyoróvaj', 'Finom, krémes és még akciós is!', 'Rágcsa'), ('4', 'Kerekerdő Gumiabroncs', 'Jól megy és még akciós is!', 'Jármű')
+INSERT INTO `akciós_termékek` (`TermekID`, `Termék_neve`, `Termék_leírás`, `Termék_kategória`) VALUES ('1', 'Akciós mogyoróvaj', 'Finom, krémes és még akciós is!', 'Rágcsa'), ('4', 'Kerekerdő Gumiabroncs', 'Jól megy és még akciós is!', 'Jármű');
 
-INSERT INTO `akciós_termékek_eredeti_ár` (`Eredeti_ár`, `TermekID`) VALUES ('600', '1'), ('15000', '4')
+INSERT INTO `akciós_termékek_eredeti_ár` (`Eredeti_ár`, `TermekID`) VALUES ('600', '1'), ('15000', '4');
 
-INSERT INTO `akciós_termékek_akciós_ár` (`Akciós_ár`, `TermekID`) VALUES ('450', '1'), ('10000', '4')
+INSERT INTO `akciós_termékek_akciós_ár` (`Akciós_ár`, `TermekID`) VALUES ('450', '1'), ('10000', '4');
 
-INSERT INTO `beszállító_raktár` (`TermekID`, `Darabszám`, `Kategória`, `Név`, `BeszallitoID`) VALUES ('1', '34', 'Rágcsa', 'Mogyoróvaj', '4'), ('2', '10', 'Fagyasztott áru', 'Birkatej', '2'), ('6', '200', 'Fagyasztott áru', 'Gyorsfagyasztott ananászos pizza', '2')
+INSERT INTO `beszállító_raktár` (`TermekID`, `Darabszám`, `Kategória`, `Név`, `BeszallitoID`) VALUES ('1', '34', 'Rágcsa', 'Mogyoróvaj', '4'), ('2', '10', 'Fagyasztott áru', 'Birkatej', '2'), ('6', '200', 'Fagyasztott áru', 'Gyorsfagyasztott ananászos pizza', '2');

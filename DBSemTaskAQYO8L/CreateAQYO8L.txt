@@ -1,40 +1,20 @@
 CREATE TABLE Áruház
 (
   AruhazID INT NOT NULL,
-  Név VARCHAR(256) NOT NULL,
-  Település VARCHAR(256) NOT NULL,
+  Név VARCHAR(45) NOT NULL,
+  Település VARCHAR(45) NOT NULL,
   Iranyitoszam INT NOT NULL,
-  Utca VARCHAR(256) NOT NULL,
+  Utca VARCHAR(45) NOT NULL,
   Házszám INT NOT NULL,
   PRIMARY KEY (AruhazID)
-);
-
-CREATE TABLE Beszállító
-(
-  BeszallitoID INT NOT NULL,
-  Név VARCHAR(256) NOT NULL,
-  Termék_kategória VARCHAR(256) NOT NULL,
-  Átlagos_kiszállítási_idő INT NOT NULL,
-  PRIMARY KEY (BeszallitoID)
-);
-
-CREATE TABLE Beszállító_raktár
-(
-  TermekID INT NOT NULL,
-  Darabszám INT NOT NULL,
-  Kategória VARCHAR(256) NOT NULL,
-  Név VARCHAR(256) NOT NULL,
-  BeszallitoID INT NOT NULL,
-  PRIMARY KEY (TermekID),
-  FOREIGN KEY (BeszallitoID) REFERENCES Beszállító(BeszallitoID)
 );
 
 CREATE TABLE Áruház_raktár_tartalom
 (
   Darabszám INT NOT NULL,
-  Név VARCHAR(256) NOT NULL,
-  Kategória VARCHAR(256) NOT NULL,
-  Leírás VARCHAR(256) NOT NULL,
+  Név VARCHAR(45) NOT NULL,
+  Kategória VARCHAR(45) NOT NULL,
+  Leírás VARCHAR(145) NOT NULL,
   TermekID INT NOT NULL,
   AruhazID INT NOT NULL,
   PRIMARY KEY (TermekID),
@@ -44,10 +24,18 @@ CREATE TABLE Áruház_raktár_tartalom
 CREATE TABLE Akciós_termékek
 (
   TermekID INT NOT NULL,
-  Termék_neve VARCHAR(256) NOT NULL,
-  Termék_leírás VARCHAR(256) NOT NULL,
-  Termék_kategória VARCHAR(256) NOT NULL,
+  Termék_neve VARCHAR(45) NOT NULL,
+  Termék_leírás VARCHAR(145) NOT NULL,
+  Termék_kategória VARCHAR(45) NOT NULL,
   PRIMARY KEY (TermekID),
+  FOREIGN KEY (TermekID) REFERENCES Áruház_raktár_tartalom(TermekID)
+);
+
+CREATE TABLE Áruház_raktár_tartalom_Ár
+(
+  Ár INT NOT NULL,
+  TermekID INT NOT NULL,
+  PRIMARY KEY (Ár, TermekID),
   FOREIGN KEY (TermekID) REFERENCES Áruház_raktár_tartalom(TermekID)
 );
 
@@ -67,16 +55,29 @@ CREATE TABLE Akciós_termékek_Akciós_ár
   FOREIGN KEY (TermekID) REFERENCES Akciós_termékek(TermekID)
 );
 
-CREATE TABLE Áruház_raktár_tartalom_Ár
+CREATE TABLE Beszállító
 (
-  Ár INT NOT NULL,
+  BeszallitoID INT NOT NULL,
+  Név VARCHAR(45) NOT NULL,
+  Termék_kategória VARCHAR(145) NOT NULL,
+  Átlagos_kiszállítási_idő INT NOT NULL,
+  PRIMARY KEY (BeszallitoID)
+);
+
+CREATE TABLE Beszállító_raktár
+(
   TermekID INT NOT NULL,
-  PRIMARY KEY (Ár, TermekID),
-  FOREIGN KEY (TermekID) REFERENCES Áruház_raktár_tartalom(TermekID)
+  Darabszám INT NOT NULL,
+  Kategória VARCHAR(145) NOT NULL,
+  Név VARCHAR(45) NOT NULL,
+  BeszallitoID INT NOT NULL,
+  PRIMARY KEY (TermekID),
+  FOREIGN KEY (BeszallitoID) REFERENCES Beszállító(BeszallitoID)
 );
 
 CREATE TABLE Áruház_beszállító_kapcsolat
 (
+  Átlagos_rendelt_áru_mennyiség INT NOT NULL,
   AruhazID INT NOT NULL,
   BeszallitoID INT NOT NULL,
   PRIMARY KEY (AruhazID, BeszallitoID),
