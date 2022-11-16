@@ -1,0 +1,7 @@
+INSERT INTO `oktató` (`neptunkód`, `név`, `tanszék`) VALUES ('ASDFG', 'Kecskés Béla', 'ÁIF'), ('LKJHGF', 'Repedt Árpád', 'ÁIF'), ('POIUZT', 'Lencsés Attila', 'ÁM');
+
+INSERT INTO `tárgy`(`kód`, `kredit`, `megnevezés`, `neptunkód`) VALUES 'GEIAL-828B', '4', 'Matematikai Statisztika', 'POIUZT'), ('GEMAK-800D', '5', 'Hálózati Alapismeretek I.', 'ASDFG'), ('LEMAK-123', '3', 'Bevezetés a TeX-be', 'LKJHGF');
+
+INSERT INTO `hallgató`(`neptunkód`, `név`, `tankör`, `szül_d`, `irszám` `város`, `utca`, `hsz`) VALUES ('EERTZW', 'Kardos Roland', 'Programtervező Informatika', '2000.01.01', '3433', 'Nyékládháza', 'József Attila utca', '23') ('S2RTZU', 'Béka Kálmán', 'Mérnökinformatika', '2002.06.07', '3511', 'Miskolc', 'Erdős Péter utca', '11' ('L8YSDF', 'Kukor Ica', 'Járműgépész', '2001.09.09', '3899', 'Mucsomröcsöge. 'Hörcsög utca', '69'); 
+
+INSERT INTO `hallgat`(`félév`,`vizsgajegy`,`kód`,`neptunkód`) VALUES ('3','0','LEMAK-123','FERTZH'), ('2', '2', 'GEMAK-800D', 'S2RTZU'), ('3', '3', 'GEIAL-828B', 'L8YSDF');

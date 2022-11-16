@@ -1,0 +1,41 @@
+CREATE TABLE Oktató
+(
+  neptunkód VARCHAR(6) NOT NULL,
+  név VARCHAR(45) NOT NULL,
+  tanszék VARCHAR(45) NOT NULL,
+  PRIMARY KEY (neptunkód)
+);
+
+CREATE TABLE Tárgy
+(
+  kód VARCHAR(25) NOT NULL,
+  kredit INT NOT NULL,
+  megnevezés VARCHAR(45) NOT NULL,
+  neptunkód VARCHAR(6) NOT NULL,
+  PRIMARY KEY (kód),
+  FOREIGN KEY (neptunkód) REFERENCES Oktató(neptunkód)
+);
+
+CREATE TABLE Hallgató
+(
+  neptunkód VARCHAR(6) NOT NULL,
+  név VARCHAR(45) NOT NULL,
+  tankör VARCHAR(45) NOT NULL,
+  szül_d INT NOT NULL,
+  irszám INT NOT NULL,
+  város VARCHAR(45) NOT NULL,
+  utca VARCHAR(45) NOT NULL,
+  hsz INT NOT NULL,
+  PRIMARY KEY (neptunkód)
+);
+
+CREATE TABLE hallgat
+(
+  félév INT NOT NULL,
+  vizsgajegy INT NOT NULL,
+  kód VARCHAR(25) NOT NULL,
+  neptunkód VARCHAR(6) NOT NULL,
+  PRIMARY KEY (kód, neptunkód),
+  FOREIGN KEY (kód) REFERENCES Tárgy(kód),
+  FOREIGN KEY (neptunkód) REFERENCES Hallgató(neptunkód)
+);
